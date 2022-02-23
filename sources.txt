@@ -1,0 +1,6 @@
+#DOCKER CONFIGURATION WITH KAFKA
+https://hub.docker.com/r/bitnami/kafka/#full-configuration
+
+
+#lib for kafka consumer/producer python
+https://kafka-python.readthedocs.io/en/master/
