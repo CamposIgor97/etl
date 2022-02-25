@@ -1,6 +1,12 @@
-#DOCKER CONFIGURATION WITH KAFKA
-https://hub.docker.com/r/bitnami/kafka/#full-configuration
+## DOCKER CONFIGURATION WITH KAFKA
+    https://hub.docker.com/r/bitnami/kafka/#full-configuration
 
 
-#lib for kafka consumer/producer python
-https://kafka-python.readthedocs.io/en/master/
+## lib for kafka consumer/producer python
+    https://kafka-python.readthedocs.io/en/master/
+
+
+## how to connect to clickhouse
+    echo "SELECT version()" | curl 'http://localhost:18123/' --data-binary @-
+    https://clickhouse.com/docs/en/interfaces/formats/#jsoneachrow
+    https://clickhouse.com/docs/en/interfaces/formats/
