@@ -3,11 +3,11 @@ import uuid
 import json
 
 producer = KafkaProducer(
-    bootstrap_servers=['localhost:9092'],
+    bootstrap_servers=['localhost:9093'],
     value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 
 for _ in range(10):
-    producer.send('foobar', {"id": str(uuid.uuid4())})
+    producer.send('foobar', {"time": "2021-01-22T18:20:42.159246", "type": "serve", "correlation_id": "357d1bc4-3502-4592-8355-874b1c31f1a6", "site_id": "0faf8b64-a33d-4db8-aaee-aa165d13cff6"})
     producer.flush()
 
 

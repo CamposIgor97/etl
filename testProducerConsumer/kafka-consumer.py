@@ -2,7 +2,7 @@ from kafka import KafkaConsumer
 import json
 
 consumer = KafkaConsumer('foobar',
-    bootstrap_servers='localhost:9092',
+    bootstrap_servers='localhost:9093',
     auto_offset_reset='earliest',
     consumer_timeout_ms=1000,
     value_deserializer = json.loads)
