@@ -16,3 +16,4 @@ typing_extensions==4.1.1
 uvicorn==0.17.5
 watchgod==0.7
 websockets==10.2
+clickhouse-driver==0.2.3

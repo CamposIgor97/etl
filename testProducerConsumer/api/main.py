@@ -1,9 +1,10 @@
 from multiprocessing import Event
-import urllib3
 import json
 from pydantic import BaseModel
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.encoders import jsonable_encoder
+from clickhouse_driver import Client
 
 from kafka import KafkaProducer
 
@@ -32,11 +33,23 @@ def rank(payload: EventPayload):
     #if not project_id:
     #    raise HTTPException(status_code=400, detail="Missing project_id")
 
-    #producer = KafkaProducer(
-    #    bootstrap_servers=['localhost:9093'],
-    #    value_serializer=lambda v: json.dumps(v).encode('utf-8'))
+    try:
+        producer = KafkaProducer(
+            bootstrap_servers=['kafka:9092'],
+            value_serializer=lambda v: json.dumps(v).encode('utf-8'))
 
-    #producer.send('foobar', payload)
-    #producer.flush()
+        producer.send('event', jsonable_encoder(payload))
+        producer.flush()
 
-    return 'sucesso'
+        return {'message':'success'}
+
+    except Exception as e:
+        print(e)
+        return {'message':e}
+
+@app.get("/report")
+def report():
+    client = Client(host='some-clickhouse-server')
+    result = client.execute('SELECT * FROM eventdb.event')
+    return {'message': result}
+    
