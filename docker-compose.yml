@@ -33,13 +33,6 @@ services:
     networks:
       - app-tier
 
-  myapp:
-    image: 'kafkapython'
-    ports:
-      - '8080:80'
-    networks:
-      - app-tier
-
   clickhouse-server:
     image: 'clickhouse/clickhouse-server:latest'
     ports:
@@ -56,5 +49,13 @@ services:
     networks:
       - app-tier
 
+  myapp:
+    image: 'kafkapython'
+    ports:
+      - '8080:80'
+    networks:
+      - app-tier
+    depends_on:
+      - clickhouse-server
 
 
