@@ -6,7 +6,7 @@ CREATE TABLE queue_event
     type String,
     correlation_id String,
     site_id String
-) ENGINE = Kafka('kafka:9092', 'event', 'group1')
+) ENGINE = Kafka('my-release-kafka:9092', 'event', 'group1')
 SETTINGS
     kafka_format = 'JSONEachRow',
     kafka_num_consumers = 1;

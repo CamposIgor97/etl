@@ -14,7 +14,7 @@ services:
     networks:
       - app-tier
 
-  kafka:
+  my-release-kafka:
     image: 'bitnami/kafka:latest'
     ports:
       # Maps the external port to outside of the docker env, this helps test the aplication
@@ -26,7 +26,7 @@ services:
       - ALLOW_PLAINTEXT_LISTENER=yes
       - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CLIENT:PLAINTEXT,EXTERNAL:PLAINTEXT
       - KAFKA_CFG_LISTENERS=CLIENT://:9092,EXTERNAL://:9093
-      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://kafka:9092,EXTERNAL://localhost:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=CLIENT://my-release-kafka:9092,EXTERNAL://localhost:9093
       - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=CLIENT
     depends_on:
       - zookeeper
@@ -34,7 +34,7 @@ services:
       - app-tier
 
   clickhouse-server:
-    image: 'clickhouse/clickhouse-server:latest'
+    image: 'event-clickhouse'
     ports:
       - '19000:9000'
       - '18123:8123'
@@ -42,10 +42,8 @@ services:
     #  - CLICKHOUSE_USER=user_reader
     #  - CLICKHOUSE_PASSWORD=123
     #  - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
-    volumes:
-      - ./scripts:/docker-entrypoint-initdb.d
     depends_on:
-      - kafka
+      - my-release-kafka
     networks:
       - app-tier
 
